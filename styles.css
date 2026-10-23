@@ -1,0 +1,534 @@
+:root {
+  --bg: #0b0f0c;
+  --bg-elev: #12181300;
+  --card: #15201a;
+  --card-hover: #1b2a21;
+  --xbox-green: #107c10;
+  --xbox-green-bright: #16c60c;
+  --text: #e8f0ea;
+  --text-dim: #8a9a8f;
+  --border: #243329;
+  --gold: #f2c744;
+  --locked: #3a4740;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(16, 124, 16, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(22, 198, 12, 0.08), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 24px clamp(16px, 5vw, 64px) 48px;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.xbox-logo {
+  width: 52px;
+  height: 52px;
+  color: var(--xbox-green-bright);
+  filter: drop-shadow(0 0 10px rgba(22, 198, 12, 0.5));
+}
+
+.brand-text h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.gamerscore {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: 12px;
+}
+
+.gs-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--xbox-green);
+  color: #fff;
+  font-weight: 700;
+  font-family: "Orbitron", sans-serif;
+}
+
+#gamerscore-value {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--xbox-green-bright);
+}
+
+.gs-label {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Summary */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-number {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.summary-label {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.progress-card {
+  grid-column: span 2;
+  justify-content: center;
+}
+
+@media (max-width: 520px) {
+  .progress-card { grid-column: span 1; }
+}
+
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.progress-head #progress-percent {
+  font-family: "Orbitron", sans-serif;
+  color: var(--xbox-green-bright);
+  font-weight: 700;
+}
+
+.progress-track {
+  height: 10px;
+  background: #0a0f0c;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--xbox-green), var(--xbox-green-bright));
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.filter-btn {
+  background: var(--card);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: var(--xbox-green);
+}
+
+.filter-btn.active {
+  background: var(--xbox-green);
+  color: #fff;
+  border-color: var(--xbox-green);
+}
+
+/* Achievements grid */
+.achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.achievement {
+  display: flex;
+  gap: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  animation: fade-in 0.4s ease both;
+}
+
+.achievement:hover {
+  transform: translateY(-3px);
+  background: var(--card-hover);
+  border-color: var(--xbox-green);
+}
+
+.achievement.locked {
+  opacity: 0.78;
+}
+
+.achievement.locked .ach-icon {
+  filter: grayscale(1);
+}
+
+.ach-icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  background: linear-gradient(145deg, #1d2b22, #0e1611);
+  border: 1px solid var(--border);
+}
+
+.achievement.unlocked .ach-icon {
+  box-shadow: 0 0 14px rgba(22, 198, 12, 0.35);
+  border-color: var(--xbox-green);
+}
+
+.ach-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ach-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ach-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.ach-gs {
+  flex-shrink: 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.85rem;
+  color: var(--xbox-green-bright);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ach-gs .mini-g {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--xbox-green);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.6rem;
+}
+
+.ach-desc {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 6px 0 10px;
+  line-height: 1.4;
+}
+
+.ach-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+}
+
+.rarity {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rarity.comun { background: #203a4a; color: #7fd3ff; }
+.rarity.rara { background: #2c2540; color: #c4a7ff; }
+.rarity.epica { background: #3a2342; color: #f09bff; }
+.rarity.legendaria { background: #42391c; color: var(--gold); }
+
+.status-tag {
+  color: var(--text-dim);
+}
+
+.achievement.unlocked .status-tag {
+  color: var(--xbox-green-bright);
+}
+
+.date {
+  color: var(--text-dim);
+  margin-left: auto;
+}
+
+/* Footer */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+.footer code {
+  background: var(--card);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Interacción: tarjetas clicables -------------------------------- */
+.achievement {
+  cursor: pointer;
+  user-select: none;
+}
+
+.achievement:focus-visible {
+  outline: 2px solid var(--xbox-green-bright);
+  outline-offset: 2px;
+}
+
+.achievement:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* ---- Gamerscore bump al desbloquear ---------------------------------- */
+.gs-bump {
+  animation: gs-bump 0.6s cubic-bezier(0.2, 0.9, 0.2, 1.4);
+}
+
+@keyframes gs-bump {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.35); text-shadow: 0 0 14px rgba(22, 198, 12, 0.9); }
+  100% { transform: scale(1); }
+}
+
+/* ---- Notificación estilo Xbox --------------------------------------- */
+.toast-stack {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.xbox-toast {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 320px;
+  max-width: 90vw;
+  padding: 12px 22px 12px 14px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(20, 32, 25, 0.98), rgba(10, 16, 12, 0.98));
+  border: 1px solid rgba(22, 198, 12, 0.5);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.55),
+    0 0 26px rgba(22, 198, 12, 0.25);
+  backdrop-filter: blur(6px);
+  /* estado inicial: oculto abajo */
+  opacity: 0;
+  transform: translateY(80px) scale(0.9);
+  transition:
+    transform 0.55s cubic-bezier(0.17, 0.84, 0.28, 1.1),
+    opacity 0.45s ease;
+}
+
+.xbox-toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.xbox-toast.hide {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+}
+
+/* Esfera verde con "pop" y destello */
+.toast-orb {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+.orb-core {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  background: radial-gradient(circle at 35% 30%, #4be03a, var(--xbox-green) 70%);
+  box-shadow: 0 0 18px rgba(22, 198, 12, 0.8);
+  z-index: 2;
+  animation: orb-pop 0.6s cubic-bezier(0.2, 0.9, 0.2, 1.5) 0.15s both;
+}
+
+.orb-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--xbox-green-bright);
+  z-index: 1;
+  animation: orb-ring 0.9s ease-out 0.25s both;
+}
+
+.orb-flash {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(170, 255, 150, 0.9), transparent 60%);
+  z-index: 0;
+  animation: orb-flash 0.7s ease-out 0.2s both;
+}
+
+@keyframes orb-pop {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes orb-ring {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes orb-flash {
+  0%   { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.toast-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  animation: toast-text-in 0.5s ease 0.3s both;
+}
+
+.toast-top {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--xbox-green-bright);
+  font-weight: 600;
+}
+
+.toast-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 44vw;
+}
+
+.toast-gs {
+  margin-left: auto;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.9rem;
+  color: var(--xbox-green-bright);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: toast-text-in 0.5s ease 0.4s both;
+}
+
+@keyframes toast-text-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xbox-toast,
+  .orb-core,
+  .orb-ring,
+  .orb-flash,
+  .toast-text,
+  .toast-gs,
+  .gs-bump {
+    animation: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+}
